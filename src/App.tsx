@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import Selectors from "./Selectors";
+import Dnd from "./Dnd";
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
 html, body, div, span, applet, object, iframe,
@@ -69,7 +69,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Selectors />
+      <Dnd />
     </>
   );
 }
