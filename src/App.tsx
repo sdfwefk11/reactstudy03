@@ -55,7 +55,7 @@ table {
 body {
   font-family: 'Ubuntu', sans-serif;
   background-color: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textColor};
+  color: black;
   :hover {
     transition: 0.5s;
   }
