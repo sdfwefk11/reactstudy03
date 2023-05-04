@@ -27,13 +27,16 @@ function Dnd() {
     console.log(info);
     const { destination, source, draggableId } = info;
     if (destination?.droppableId === source.droppableId) {
+      setToDos((oldToDos) => {
+        const boardCopy = [...oldToDos[source.droppableId]];
+        boardCopy.splice(source.index, 1); //source.index: 현재 내가 선택한 카드의 index 번호 즉 배열의 index number [0, 1, 2, 3, 4, 5]
+        boardCopy.splice(destination?.index, 0, draggableId);
+        return {
+          ...oldToDos,
+          [source.droppableId]: boardCopy,
+        };
+      });
     }
-    /* setToDos((oldToDos) => {
-      const toDosCopy = [...oldToDos];
-      toDosCopy.splice(source.index, 1); //source.index: 현재 내가 선택한 카드의 index 번호 즉 배열의 index number [0, 1, 2, 3, 4, 5]
-      toDosCopy.splice(destination?.index, 0, draggableId);
-      return toDosCopy;
-    }); */
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
