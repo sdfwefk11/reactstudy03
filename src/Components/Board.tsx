@@ -41,9 +41,12 @@ interface IAreaProps {
 }
 
 function Board({ toDos, boardId }: IBoardProps) {
+  const onClick = () => {};
   return (
     <Wrapper>
       <Title>{boardId}</Title>
+      <input placeholder="grab me" />
+      <button onClick={onClick}>click me</button>
       <Droppable droppableId={boardId}>
         {(provided, snapShot) => (
           <Area
