@@ -1,5 +1,5 @@
-import { useRef } from "react";
 import { Droppable } from "react-beautiful-dnd";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import DragabbleCard from "./DragabbleCard";
 
@@ -30,30 +30,41 @@ const Area = styled.div<IAreaProps>`
   flex-grow: 1;
   transition: background-color 0.3s ease-in-out;
 `;
+const Form = styled.form`
+  width: 100%;
+  input {
+    width: 100%;
+  }
+`;
 
 interface IBoardProps {
   toDos: string[];
   boardId: string;
 }
-
 interface IAreaProps {
   isDraggingOver: boolean;
   isDraggingFromThis: boolean;
 }
+interface IForm {
+  toDo: string;
+}
 
 function Board({ toDos, boardId }: IBoardProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onClick = () => {
-    inputRef.current?.focus();
-    setTimeout(() => {
-      inputRef.current?.blur();
-    }, 5000);
+  const { register, setValue, handleSubmit } = useForm<IForm>();
+  const onValid = (data: IForm) => {
+    console.log(data);
+    setValue("toDo", "");
   };
   return (
     <Wrapper>
       <Title>{boardId}</Title>
-      <input placeholder="grab me" />
-      <button onClick={onClick}>click me</button>
+      <Form onSubmit={handleSubmit(onValid)}>
+        <input
+          {...register("toDo", { required: true })}
+          type="text"
+          placeholder={`Add task on ${boardId}`}
+        />
+      </Form>
       <Droppable droppableId={boardId}>
         {(provided, snapShot) => (
           <Area
