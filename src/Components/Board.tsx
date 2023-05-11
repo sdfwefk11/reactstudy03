@@ -1,6 +1,7 @@
 import { Droppable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { IToDo } from "../atoms";
 import DragabbleCard from "./DragabbleCard";
 
 const Wrapper = styled.div`
@@ -38,7 +39,7 @@ const Form = styled.form`
 `;
 
 interface IBoardProps {
-  toDos: string[];
+  toDos: IToDo[];
   boardId: string;
 }
 interface IAreaProps {
@@ -51,8 +52,7 @@ interface IForm {
 
 function Board({ toDos, boardId }: IBoardProps) {
   const { register, setValue, handleSubmit } = useForm<IForm>();
-  const onValid = (data: IForm) => {
-    console.log(data);
+  const onValid = ({ toDo }: IForm) => {
     setValue("toDo", "");
   };
   return (
@@ -74,7 +74,12 @@ function Board({ toDos, boardId }: IBoardProps) {
             {...provided.droppableProps}
           >
             {toDos.map((toDo, index) => (
-              <DragabbleCard key={toDo} toDo={toDo} index={index} />
+              <DragabbleCard
+                key={toDo.id}
+                toDoId={toDo.id}
+                index={index}
+                toDoText={toDo.text}
+              />
             ))}
           </Area>
         )}
