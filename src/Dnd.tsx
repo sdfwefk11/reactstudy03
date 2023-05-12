@@ -30,8 +30,9 @@ function Dnd() {
     if (destination?.droppableId === source.droppableId) {
       setToDos((oldToDos) => {
         const boardCopy = [...oldToDos[source.droppableId]];
+        const taskObj = boardCopy[source.index];
         boardCopy.splice(source.index, 1); //source.index: 현재 내가 선택한 카드의 index 번호 즉 배열의 index number [0, 1, 2, 3, 4, 5]
-        boardCopy.splice(destination?.index, 0, draggableId);
+        boardCopy.splice(destination?.index, 0, taskObj);
         return {
           ...oldToDos,
           [source.droppableId]: boardCopy,
@@ -42,8 +43,9 @@ function Dnd() {
       setToDos((oldToDos) => {
         const sourceBoard = [...oldToDos[source.droppableId]];
         const destinationBoard = [...oldToDos[destination.droppableId]];
+        const taskObj = sourceBoard[source.index];
         sourceBoard.splice(source.index, 1);
-        destinationBoard.splice(destination.index, 0, draggableId);
+        destinationBoard.splice(destination.index, 0, taskObj);
         return {
           ...oldToDos,
           [source.droppableId]: sourceBoard,
